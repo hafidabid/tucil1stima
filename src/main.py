@@ -1,4 +1,5 @@
 import datetime as dt
+import os
 
 def permutationEngine(arr,arrSize,tabungan=9):
     if(arrSize==1):
@@ -100,47 +101,21 @@ def pencocokan(arrHuruf,arrAngka,huruf):
     else:
         return -1
 
-def cariangka(arr,huruf):
-    count = 0
-    flag = False
-    while(flag==False):
-        if(arr[count]==huruf):
-            flag = True
-        else:
-            count=count+1
-
-    if flag:
-        return count
-    else:
-        return 0-1
-
 def criptaarimatic(arr,listhuruf,listangka):
     angka = []
     flag = True
     count = 0
 
-    if len(listhuruf)>0:
-        while (count < len(arr) and flag):
-            if arr[count] != "------":
-                temp = ""
-                for y in arr[count]:
-                    temp = temp + str(pencocokan(listhuruf, listangka, y))
+    while (count < len(arr) and flag):
+        if arr[count] != "------":
+            temp = ""
+            for y in arr[count]:
+                temp = temp + str(pencocokan(listhuruf, listangka, y))
 
-                if temp[0] == "0": flag = False
-                angka.append(int(temp))
+            if temp[0] == "0": flag = False
+            angka.append(int(temp))
 
-            count = count + 1
-    else:
-        while (count < len(arr) and flag):
-            if arr[count] != "------":
-                temp = ""
-                for y in arr[count]:
-                    temp = temp + str(cariangka(listangka, y))
-
-                if temp[0] == "0": flag = False
-                angka.append(int(temp))
-
-            count = count + 1
+        count = count + 1
 
     count = 0
     if flag:
@@ -234,10 +209,13 @@ def cekTabunganAngka(data):
     else:
         return 2
 
-inputan = str((open('input.txt','r')).read()).split()
+path = "..\\test\\"
+fileteks = str(input("masukkan nama file test (including dot txt) = "))
+inputan = str((open(path+fileteks,'r')).read()).split()
 h = getHuruf(inputan)
 print("banyak komponen huruf = "+str(len(h))+" \n")
 starttime= dt.datetime.today()
 bruteforce(inputan,starttime)
 endtime = dt.datetime.today()
 print("\nFINISH ALL IN = "+str((endtime-starttime).total_seconds())+" SECOND")
+input()
